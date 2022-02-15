@@ -2277,9 +2277,8 @@ public class DownloadProcessTest extends WPSTestSupport {
                         getGeoServer());
         DownloadProcess downloadProcess =
                 new DownloadProcess(getGeoServer(), limits, resourceManager);
-        // ROI as polygon
 
-            // Download the data with ROI. It should throw an exception
+            // Download the data. It should not throw an exception -> expected = Test.None.class
         downloadProcess.execute(
                     getLayerId(MockData.USA_WORLDIMG), // layerName
                     null, // filter
