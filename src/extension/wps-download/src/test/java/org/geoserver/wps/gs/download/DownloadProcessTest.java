@@ -48,7 +48,6 @@ import javax.imageio.stream.FileImageInputStream;
 import javax.xml.namespace.QName;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.geoserver.catalog.Catalog;
 import org.geoserver.catalog.CoverageInfo;
 import org.geoserver.catalog.FeatureTypeInfo;
 import org.geoserver.catalog.LayerInfo;
@@ -2254,13 +2253,13 @@ public class DownloadProcessTest extends WPSTestSupport {
     }
 
     /**
-     * Test download estimator for raster data. The estimate must work even when dimension type not present
-     * in a saved Coverage. See GEOS-9785
-     *
+     * Test download estimator for raster data. The estimate must work even when dimension type not
+     * present in a saved Coverage. See GEOS-9785
      */
     @Test(expected = Test.None.class)
     public void testDownloadEstimatorReloadsCoverageDimensionsWhenNull() {
-        CoverageInfo mycoverage = getCatalog().getCoverageByName(MockData.USA_WORLDIMG.getLocalPart());
+        CoverageInfo mycoverage =
+                getCatalog().getCoverageByName(MockData.USA_WORLDIMG.getLocalPart());
         mycoverage.getDimensions().get(0).setDimensionType(null);
         getCatalog().save(mycoverage);
         final WPSResourceManager resourceManager = getResourceManager();
@@ -2278,27 +2277,27 @@ public class DownloadProcessTest extends WPSTestSupport {
         DownloadProcess downloadProcess =
                 new DownloadProcess(getGeoServer(), limits, resourceManager);
 
-            // Download the data. It should not throw an exception -> expected = Test.None.class
+        // Download the data. It should not throw an exception -> expected = Test.None.class
         downloadProcess.execute(
-                    getLayerId(MockData.USA_WORLDIMG), // layerName
-                    null, // filter
-                    "image/tiff", // outputFormat
-                    "image/tiff",
-                    null, // targetCRS
-                    null, // roiCRS
-                    null, // roi
-                    true, // cropToGeometry
-                    null, // interpolation
-                    null, // targetSizeX
-                    null, // targetSizeY
-                    null, // bandSelectIndices
-                    null, // Writing params
-                    false,
-                    false,
-                    0d,
-                    null,
-                    new NullProgressListener() // progressListener
-            );
+                getLayerId(MockData.USA_WORLDIMG), // layerName
+                null, // filter
+                "image/tiff", // outputFormat
+                "image/tiff",
+                null, // targetCRS
+                null, // roiCRS
+                null, // roi
+                true, // cropToGeometry
+                null, // interpolation
+                null, // targetSizeX
+                null, // targetSizeY
+                null, // bandSelectIndices
+                null, // Writing params
+                false,
+                false,
+                0d,
+                null,
+                new NullProgressListener() // progressListener
+                );
     }
 
     /**

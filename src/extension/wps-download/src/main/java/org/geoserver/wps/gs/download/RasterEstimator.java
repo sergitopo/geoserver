@@ -5,7 +5,12 @@
  */
 package org.geoserver.wps.gs.download;
 
-import org.geoserver.catalog.*;
+import org.geoserver.catalog.Catalog;
+import org.geoserver.catalog.CatalogBuilder;
+import org.geoserver.catalog.CoverageDimensionInfo;
+import org.geoserver.catalog.CoverageInfo;
+import org.geoserver.catalog.CoverageView;
+import org.geoserver.catalog.MetadataMap;
 import org.geotools.coverage.TypeMap;
 import org.geotools.coverage.grid.GridGeometry2D;
 import org.geotools.coverage.grid.io.GridCoverage2DReader;
@@ -39,7 +44,6 @@ class RasterEstimator {
     private DownloadServiceConfiguration downloadServiceConfiguration;
 
     private Catalog catalog;
-
 
     /**
      * Constructor
@@ -204,12 +208,9 @@ class RasterEstimator {
 
         if (coverageDimensionInfoList.stream().anyMatch(cdi -> cdi.getDimensionType() == null)) {
             if (LOGGER.isLoggable(Level.FINE)) {
-                LOGGER.log(
-                        Level.FINE,
-                        "Recalculating Band Dimensions Types");
+                LOGGER.log(Level.FINE, "Recalculating Band Dimensions Types");
             }
             reloadBands(coverageInfo);
-
         }
         int accumulatedPixelSizeInBits = 0;
 
